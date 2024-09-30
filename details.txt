@@ -1,0 +1,79 @@
+
+# Project Setup Details
+
+## Installation Instructions:
+
+1. **Install Dependencies:**
+   Run the following command to install all dependencies for the client and server:
+
+   ```bash
+   npm install axios bcryptjs concurrently cors dotenv express helmet jsonwebtoken mongoose nodemailer nodemon passport passport-facebook passport-google-oauth20 react react-dom react-router-dom validator @eslint/js @types/react @types/react-dom @vitejs/plugin-react eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh globals vite
+   ```
+
+2. **Run the Application:**
+   - Run the frontend using Vite: 
+   ```bash
+   npm run dev
+   ```
+   - Run the backend with Nodemon:
+   ```bash
+   npm run server
+   ```
+
+## Dependencies Overview:
+
+### Regular Dependencies:
+- **axios**: For making HTTP requests to the backend.
+- **bcryptjs**: For hashing and verifying passwords securely.
+- **concurrently**: To run both the frontend and backend concurrently.
+- **cors**: To enable cross-origin resource sharing for the API.
+- **dotenv**: For handling environment variables securely.
+- **express**: To create the Node.js server and API routes.
+- **helmet**: For security by setting HTTP headers appropriately.
+- **jsonwebtoken**: To handle token-based authentication using JWT.
+- **mongoose**: To interact with MongoDB for storing and retrieving user data.
+- **nodemailer**: To send email notifications (e.g., "Thank you for registering" emails).
+- **nodemon**: To automatically restart the Node.js server on file changes.
+- **passport**: To handle authentication strategies (Google, Facebook, etc.).
+- **passport-facebook**: For Facebook OAuth authentication.
+- **passport-google-oauth20**: For Google OAuth authentication.
+- **react**: The core React library for building UI components.
+- **react-dom**: The library for working with the DOM in React.
+- **react-router-dom**: To handle routing and navigation in the React app.
+- **validator**: To validate user inputs, such as email and password.
+
+### Development Dependencies:
+- **@eslint/js**: ESLint configuration for JS files.
+- **@types/react**: TypeScript types for React (if you plan to use TypeScript).
+- **@types/react-dom**: TypeScript types for React DOM.
+- **@vitejs/plugin-react**: React plugin for Vite to enable React fast refresh.
+- **eslint**: A linter to enforce consistent code formatting.
+- **eslint-plugin-react**: Linter rules specifically for React code.
+- **eslint-plugin-react-hooks**: Enforces rules of hooks in React.
+- **eslint-plugin-react-refresh**: Ensures Vite's React fast refresh works correctly.
+- **globals**: Provides global variable definitions.
+- **vite**: Build tool to serve the React frontend with fast reload.
+
+## Folder Structure:
+
+```text
+/project-root
+│
+├── /client               # Frontend
+│   ├── /src              # React source files
+│   │   ├── /components   # React components (Login, Signup, etc.)
+│   │   ├── App.js        # Main app file
+│   │   ├── main.jsx      # Entry point for the React app
+│   ├── /public           # Public files (index.html, assets)
+│   ├── package.json      # Client-side dependencies and scripts
+│   └── vite.config.js    # Vite configuration for the React app
+│
+├── /server               # Backend
+│   ├── /models           # MongoDB models (User.js)
+│   ├── /routes           # API routes (auth.js for login/signup)
+│   ├── server.js         # Main Express server file
+│   ├── .env              # Environment variables (MongoDB URI, OAuth keys)
+│   └── package.json      # Server-side dependencies and scripts
+│
+└── README.md             # Overview and advantages of the project
+```
