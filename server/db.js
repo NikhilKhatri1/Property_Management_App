@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const mongoUrl = 'mongodb://localhost:27017/PropertyManangementData';
 
-mongoose.connect('mongoUrl', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+mongoose.connect(mongoUrl, {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true
 })
 
 const db = mongoose.connection;
