@@ -8,11 +8,12 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 require('dotenv').config();
 
+
 const app = express();
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/authentication', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/PropertyManagementData', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // User Schema
 const userSchema = new mongoose.Schema({
