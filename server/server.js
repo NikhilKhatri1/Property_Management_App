@@ -3,12 +3,16 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const db = require('./db');
 const signup = require('./models/signup');
-// const login = require('./models/login');
+const login = require('./models/login');
 const app = express();
+const cors = require('cors');
+
+
+// Use cors middleware to allow requests from the frontend
+app.use(cors({ origin: 'http://localhost:5173' })); // You can specify the exact origin you want to allow
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json())
-
 
 app.get('/', (req, res) => {
     res.send("Property Management app Login")
@@ -53,17 +57,7 @@ app.post('/signup', async (req, res) => {
         res.status(500).json({ error: 'Internal Server error' })
     }
 })
-app.get('/signup', async (req, res) => {
-    try {
-        const data = await signup.find();
-        console.log('data is fetch');
-        res.status(200).json(data);
-    }
-    catch (err) {
-        console.log(err);
-        res.status(500).json({ error: 'Internal Server error' })
-    }
-})
+
 
 // Start Server
 app.listen(5000, () => console.log('Server started on port 5000: http://localhost:5000'));

@@ -21,11 +21,11 @@ const Signup = () => {
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input type="email" className="form-control" id="email" placeholder="Enter email" />
                 </div>
-                <div className="mb-1">
+                <div className="mb-2">
                     <label htmlFor="password" className="form-label">Password</label>
                     <input type="password" className="form-control" id="password" placeholder="Password" />
                 </div>
-                <button type="submit" className="btn btn-primary w-100">Signup</button>
+                <button type="submit" className="btn btn-success w-100">Signup</button>
             </form>
         </div>
     );
