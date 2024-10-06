@@ -28,11 +28,11 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="text-center">Login</h2>
+    <div className="container mt-2">
+      <h2 className="text-center fs-2 fw-bold">Login</h2>
       {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
+        <div className="my-3">
           <label htmlFor="email" className="form-label">Email address</label>
           <input
             type="email"
