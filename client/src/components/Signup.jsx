@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
 
 const Signup = () => {
-    // Manage form state
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+
+    const navigate = useNavigate();  // Initialize navigate
 
     // Handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent form from refreshing the page
+        e.preventDefault();  // Prevent form refresh
 
         const signupData = {
-            firstName: firstName,
-            lastName: lastName,
-            userName: userName,
+            firstName,
+            lastName,
+            userName,
             loginId: email,  // Using email as loginId
-            password: password
+            password
         };
 
         try {
-            // Sending signup data to backend
             const response = await fetch('http://localhost:5000/signup', {
                 method: 'POST',
                 headers: {
@@ -34,18 +35,13 @@ const Signup = () => {
             const result = await response.json();
 
             if (response.status === 200) {
-                setMessage('Signup successful!');
-                // Clear form fields
-                setFirstName('');
-                setLastName('');
-                setUserName('');
-                setEmail('');
-                setPassword('');
+                // On successful signup, navigate to login and pass success message
+                navigate('/login', { state: { message: 'Signup successful!' } });
             } else {
-                setMessage(result.error || 'Signup failed');
+                setError(result.error || 'Signup failed');
             }
         } catch (err) {
-            setMessage('Error occurred during signup');
+            setError('Error occurred during signup');
         }
     };
 
@@ -115,7 +111,7 @@ const Signup = () => {
                 </div>
                 <button type="submit" className="btn btn-success w-100">Signup</button>
             </form>
-            {message && <p className="mt-2 text-center">{message}</p>}
+            {error && <p className="mt-2 text-center text-danger">{error}</p>}
         </div>
     );
 };
