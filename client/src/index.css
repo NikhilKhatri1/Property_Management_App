@@ -38,10 +38,47 @@ body {
 .button-slate:active {
     background-color: rgb(166, 191, 218);
 }
-.row{
+
+.row {
     margin-top: 70px;
+    padding:0px 40px;
+
 }
-.img1{
+
+.img1 {
     height: 700px;
     width: 650px;
+}
+
+.button-white {
+    /* border: 1px solid rgb(39, 39, 39); */
+    font-weight: 590;
+    background-color: rgb(236, 233, 233) !important;
+    width: 150px;
+    height: 60px;
+}
+
+.button-white:hover {
+    font-weight: 580;
+    background-color: rgb(217, 216, 216) !important;
+}
+
+.button-white:active {
+    background-color: rgb(236, 233, 217) !important;
+}
+
+.heading {
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.c-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 50px;
+    word-spacing: 10px;
+}
+.c-1 .para{
+    font-size: 23px;
 }
