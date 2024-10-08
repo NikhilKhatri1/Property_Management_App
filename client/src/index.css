@@ -52,14 +52,18 @@ body {
 
 .button-white {
     /* border: 1px solid rgb(39, 39, 39); */
-    font-weight: 590;
+    font-weight: 350;
+    font-size: 23px;
+    display: flex;
+    justify-content:center ;
+    align-items: center;
     background-color: rgb(236, 233, 233) !important;
     width: 150px;
     height: 60px;
 }
 
 .button-white:hover {
-    font-weight: 580;
+    font-weight: 490;
     background-color: rgb(217, 216, 216) !important;
 }
 
