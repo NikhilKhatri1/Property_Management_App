@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    overflow-x: hidden;
+    background-color: #FFFFFF;
+}
+
+body {
+    /* fallback for devices that do not support dvh units */
+    min-height: 100vh;
+    height: auto;
+    /* min-height: 100dvh; */
+    background-image: url("bg.jpeg");
+    background-size: cover;
+    /* Cover the entire body */
+    background-position: center;
+    /* Center the background image */
+    background-repeat: no-repeat;
+    /* Prevent the image from repeating */
+    margin: 0;
+    /* Remove default margin */
+}
+
+.button-slate {
+    border: 1px solid gray;
+    font-weight: 390;
+}
+
+.button-slate:hover {
+    font-weight: 400;
+    background-color: rgb(204, 218, 233);
+}
+
+.button-slate:active {
+    background-color: rgb(166, 191, 218);
+}
+.row{
+    margin-top: 70px;
+}
+.img1{
+    height: 700px;
+    width: 650px;
+}
