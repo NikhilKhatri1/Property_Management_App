@@ -182,7 +182,7 @@ header {
 
     .row {
         position: relative;
-        border: 1px solid blue;
+        /* border: 1px solid blue; */
         top: -50px;
         z-index: 0;
         padding: 0;
@@ -218,6 +218,4 @@ header {
         height: 400px;
         width: 350px;
     }
-
-
 }
