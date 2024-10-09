@@ -25,13 +25,50 @@ body {
     /* Remove default margin */
 }
 
+
+
+/* ======= custom Scrollbar design ======== */
+
+::-webkit-scrollbar {
+    border-radius: 10px;
+    background-color: rgb(200, 200, 200);
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgb(200, 200, 200);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(75, 74, 74);
+}
+
+
+
+
+
+.home {
+    cursor: pointer;
+}
+
+.home:hover {
+    color: rgb(75, 74, 74);
+}
+
+header {
+    background-color: rgba(256, 256, 256, 0.9);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
 .button-slate {
     border: 1px solid gray;
     font-weight: 390;
 }
 
 .button-slate:hover {
-    font-weight: 400;
+    font-weight: 490;
     background-color: rgb(204, 218, 233);
 }
 
@@ -41,7 +78,7 @@ body {
 
 .row {
     margin-top: 70px;
-    padding:0px 40px;
+    padding: 0px 40px;
 
 }
 
@@ -52,10 +89,10 @@ body {
 
 .button-white {
     /* border: 1px solid rgb(39, 39, 39); */
-    font-weight: 350;
+    font-weight: 390;
     font-size: 23px;
     display: flex;
-    justify-content:center ;
+    justify-content: center;
     align-items: center;
     background-color: rgb(236, 233, 233) !important;
     width: 150px;
@@ -83,6 +120,7 @@ body {
     line-height: 50px;
     word-spacing: 10px;
 }
-.c-1 .para{
+
+.c-1 .para {
     font-size: 23px;
 }
