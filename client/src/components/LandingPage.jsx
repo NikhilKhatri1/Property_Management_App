@@ -37,7 +37,7 @@ const LandingPage = () => {
             <p className='para'>Simplify your operations, increase productivity, and unlock the full potential of your real estate investments with our powerful Property Management Hub</p>
             <Link to='/login' className='px-4 py-2 rounded-full text-dark button-white'>Login</Link>
           </div>
-          <div className="col-lg-6 col-12">
+          <div className="col-lg-6 col-12 c-2">
             <img src="bodyimg.png" alt="bodylogo" className='img1' />
           </div>
         </div>
