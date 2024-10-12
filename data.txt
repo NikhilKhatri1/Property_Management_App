@@ -1,0 +1,338 @@
+// src/App.jsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './index.css'; // Ensure Tailwind CSS is imported
+import Login from './components/Login';
+import Signup from './components/Signup';
+
+import DashBoard from './components/DashBoard'
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<AuthPage isLogin={true} />} />
+        <Route path="/signup" element={<AuthPage isLogin={false} />} />
+        <Route path="/DashBoard" element={<DashBoard />} />
+        <Route
+          path="/"
+          element={
+            <HomePage />
+          }
+        />
+      </Routes>
+    </Router>
+  );
+};
+
+const HomePage = () => (
+  <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <h2 className="mb-4 text-2xl text-center">Property Management App</h2>
+    <div className="p-6 bg-white rounded shadow-md w-80">
+      <h3 className="mb-2 text-lg">Welcome! Please choose an option:</h3>
+      <div className="flex justify-between mt-4">
+        <Link to="/login" className="btn btn-warning">Login</Link>
+        <Link to="/signup" className='btn btn-success'>Signup</Link>
+      </div>
+    </div>
+  </div>
+);
+
+const AuthPage = ({ isLogin }) => {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="p-6 bg-white rounded shadow-md w-80">
+        {isLogin ? <Login /> : <Signup />}
+        <div className="flex justify-between mt-4">
+          <Link to={isLogin ? "/signup" : "/login"} className="btn btn-link">
+            {isLogin ? 'Don\'t have an account? Signup' : 'Already have an account? Login'}
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
+
+//login.jsx
+
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // For navigation
+
+const Login = () => {
+  const [loginId, setLoginId] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();  // Initialize useNavigate for redirection
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();  // Prevent default form submission
+    setError('');  // Clear previous errors
+
+    try {
+      // Make POST request to the login endpoint
+      const response = await axios.post('http://localhost:5000/login', { loginId, password });
+
+      // Check for success response and redirect to DashBoard
+      if (response.status === 200) {
+        console.log(response.data.message);
+        navigate('/DashBoard');  // Redirect to DashBoard on successful login
+      }
+    } catch (err) {
+      if (err.response && err.response.data && err.response.status === 401) {
+        // Display error message from server (e.g., wrong password or loginId)
+        setError(err.response.data.message);
+      } else {
+        // Display generic error message for unexpected issues
+        setError('An unexpected error occurred. Please try again.');
+      }
+    }
+  };
+
+  return (
+    <div className="container mt-2">
+      <h2 className="text-center fs-2 fw-bold">Login</h2>
+
+      {/* Display error message */}
+      {error && <div className="alert alert-danger">{error}</div>}
+
+      <form onSubmit={handleSubmit}>
+        <div className="my-3">
+          <label htmlFor="loginId" className="form-label">Login ID (Email)</label>
+          <input
+            type="email"
+            className="form-control"
+            id="loginId"
+            value={loginId}
+            onChange={(e) => setLoginId(e.target.value)}
+            placeholder="Enter login ID (Email)"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        {/* Submit button */}
+        <button type="submit" className="btn btn-warning w-100">Login</button>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
+
+// signup.jsx
+
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
+
+const Signup = () => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const navigate = useNavigate();  // Initialize navigate
+
+    // Handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();  // Prevent form refresh
+
+        const signupData = {
+            firstName,
+            lastName,
+            userName,
+            loginId: email,  // Using email as loginId
+            password
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(signupData)
+            });
+
+            const result = await response.json();
+
+            if (response.status === 200) {
+                // On successful signup, navigate to login and pass success message
+                navigate('/login', { state: { message: 'Signup successful!' } });
+            } else {
+                setError(result.error || 'Signup failed');
+            }
+        } catch (err) {
+            setError('Error occurred during signup');
+        }
+    };
+
+    return (
+        <div className="container">
+            <h2 className="text-center">Signup</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="mb-1">
+                    <label htmlFor="firstName" className="form-label">First Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="firstName"
+                        placeholder="Enter first name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-1">
+                    <label htmlFor="lastName" className="form-label">Last Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="lastName"
+                        placeholder="Enter last name"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-1">
+                    <label htmlFor="userName" className="form-label">User Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="userName"
+                        placeholder="Enter User name"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-1">
+                    <label htmlFor="email" className="form-label">Email address</label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        placeholder="Enter email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="my-2">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button type="submit" className="btn btn-success w-100">Signup</button>
+            </form>
+            {error && <p className="mt-2 text-center text-danger">{error}</p>}
+        </div>
+    );
+};
+
+export default Signup;
+
+
+
+
+
+.home {
+    cursor: pointer;
+}
+
+.home:hover {
+    color: rgb(75, 74, 74);
+}
+
+header {
+    background-color: rgba(256, 256, 256, 0.9);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button-slate {
+    border: 1px solid gray;
+    font-weight: 390;
+}
+
+.button-slate:hover {
+    font-weight: 490;
+    background-color: rgb(204, 218, 233);
+}
+
+.button-slate:active {
+    background-color: rgb(166, 191, 218);
+}
+
+.row {
+    margin-top: 70px;
+    padding: 0px 40px;
+
+}
+
+.img1 {
+    height: 700px;
+    width: 650px;
+}
+
+.button-white {
+    /* border: 1px solid rgb(39, 39, 39); */
+    font-weight: 390;
+    font-size: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(236, 233, 233) !important;
+    width: 150px;
+    height: 60px;
+}
+
+.button-white:hover {
+    font-weight: 490;
+    background-color: rgb(217, 216, 216) !important;
+}
+
+.button-white:active {
+    background-color: rgb(236, 233, 217) !important;
+}
+
+.heading {
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.c-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 50px;
+    word-spacing: 10px;
+}
+
+.c-1 .para {
+    font-size: 23px;
+}
