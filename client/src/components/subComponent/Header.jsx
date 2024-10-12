@@ -11,7 +11,7 @@ const Header = () => {
         <header className='top-0 position-sticky'>
             <nav className='h-[85px] d-flex justify-content-between align-items-center'>
                 <div className='brand-logo'>
-                    <a href="/"><img src="brandLogo.svg" alt="logo" className='logoimg' /></a>
+                    <a href="/"><img src="brandLogo.svg" alt="logo" className='logoimg w-100' /></a>
                 </div>
                 <div className='menu-icon'>
                     <button

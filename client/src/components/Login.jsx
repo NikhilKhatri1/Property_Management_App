@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // For navigation
+import Header from './subComponent/Header';
 
 const Login = () => {
   const [loginId, setLoginId] = useState('');
@@ -34,41 +35,52 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-2">
-      <h2 className="text-center fs-2 fw-bold">Login</h2>
+    <div>
+      {/* ==== import Header ====== */}
+      <Header />
+      {/* ======= Login Component ======= */}
+      <div className="flex justify-center w-full h-screen px-3 mt-4 px-lg-0">
+        <div className=" flex items-center flex-column login-container px-1 px-lg-0 bg-white bg-opacity-90 h-[470px] w-[450px] rounded-3xl">
+          <div><img src="brandLogo.svg" alt="brandlogo" className='w-[200px] mt-[40px]' /></div>
+          <div class="mt-4 mb-3 text-xl">Welcome Back to Your Property App</div>
+          {/* Display error message */}
+          {error && <div className="alert alert-danger">{error}</div>}
 
-      {/* Display error message */}
-      {error && <div className="alert alert-danger">{error}</div>}
+          <form onSubmit={handleSubmit} className='flex justify-center flex-column'>
+            <div className=' w-[360px] mb-3'>
+              <div className="m-3">
+                <label htmlFor="loginId" className="form-label">Email ID :</label>
+                <input
+                  type="email"
+                  className="form-control w-100"
+                  id="loginId"
+                  value={loginId}
+                  onChange={(e) => setLoginId(e.target.value)}
+                  placeholder="Enter login ID (Email)"
+                  required
+                />
+              </div>
+              <div className="m-3">
+                <label htmlFor="password" className="me-3 form-label">Password :</label>
+                <input
+                  type="password"
+                  className="form-control w-100"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+            </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="my-3">
-          <label htmlFor="loginId" className="form-label">Login ID (Email)</label>
-          <input
-            type="email"
-            className="form-control"
-            id="loginId"
-            value={loginId}
-            onChange={(e) => setLoginId(e.target.value)}
-            placeholder="Enter login ID (Email)"
-            required
-          />
+            {/* Submit button */}
+            <div className='flex justify-center'>
+              <button type="submit" className="btn btn-warning w-50">Login</button>
+            </div>
+          </form>
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        {/* Submit button */}
-        <button type="submit" className="btn btn-warning w-100">Login</button>
-      </form>
+      </div>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+/* src/index.css or src/components/Home.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,17 +10,12 @@ html {
 }
 
 body {
-    min-height: 100vh;
-    /* Ensure the body takes at least the full height of the viewport */
+    height: 100vh;
     background-image: url("bg.jpeg");
     background-size: cover;
-    /* This ensures the image covers the whole body */
     background-position: center;
     background-repeat: no-repeat;
     margin: 0;
-    /* Remove default margin */
-    overflow: auto;
-    /* Allow scrolling if the content is taller than the viewport */
 }
 
 /* Custom Scrollbar design */
@@ -48,18 +44,19 @@ body {
 }
 
 header {
-    padding: 0px 50px;
+    padding: 0 20px;
+    /* Adjusted for mobile */
     background-color: rgba(256, 256, 256, 0.9);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .button-slate {
     border: 1px solid gray;
-    font-weight: 390;
+    font-weight: 350;
 }
 
 .button-slate:hover {
-    font-weight: 490;
+    font-weight: 390;
     background-color: rgb(204, 218, 233);
 }
 
@@ -73,8 +70,8 @@ header {
 }
 
 .img1 {
-    height: 700px;
-    width: 650px;
+    height: 550px;
+    width: 550px;
 }
 
 .button-white {
@@ -83,18 +80,18 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(236, 233, 233) !important;
+    background-color: rgb(236, 233, 233);
     width: 150px;
     height: 60px;
 }
 
 .button-white:hover {
     font-weight: 490;
-    background-color: rgb(217, 216, 216) !important;
+    background-color: rgb(217, 216, 216);
 }
 
 .button-white:active {
-    background-color: rgb(236, 233, 217) !important;
+    background-color: rgb(236, 233, 217);
 }
 
 .heading {
@@ -134,6 +131,8 @@ header {
         background-color: rgba(255, 255, 255, 0.95);
     }
 
+
+
     .user-login {
         display: none;
         flex-direction: column;
@@ -145,8 +144,6 @@ header {
         text-align: center;
         padding: 10px 0;
         z-index: 999;
-        /* border: 1px solid black; */
-        /* justify-content: center; */
         align-items: center;
         transition: all .5s ease-in-out;
     }
@@ -157,19 +154,6 @@ header {
 
     .menu-icon {
         display: block;
-    }
-
-    .menu-icon button {
-        margin-right: 20px;
-    }
-
-    header {
-        padding: 0 20px;
-    }
-
-    .logoimg {
-        width: 150px;
-        margin-left: 10px;
     }
 
     .home {
@@ -186,21 +170,17 @@ header {
     }
 
     .row {
-        position: relative;
-        /* border: 1px solid blue; */
-        top: -50px;
-        z-index: 0;
         padding: 0;
-    }
-
-    .main {
-        padding: 15px !important;
     }
 
     .heading {
         font-size: 40px;
         line-height: 45px;
         margin-bottom: 15px;
+    }
+
+    .section-row {
+        margin-top: 120px;
     }
 
     .c-1 {
