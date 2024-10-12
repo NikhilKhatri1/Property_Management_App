@@ -9,13 +9,17 @@ html {
 }
 
 body {
-    /* min-height: 100%; */
-    height: auto;
+    min-height: 100vh;
+    /* Ensure the body takes at least the full height of the viewport */
     background-image: url("bg.jpeg");
     background-size: cover;
+    /* This ensures the image covers the whole body */
     background-position: center;
     background-repeat: no-repeat;
     margin: 0;
+    /* Remove default margin */
+    overflow: auto;
+    /* Allow scrolling if the content is taller than the viewport */
 }
 
 /* Custom Scrollbar design */
@@ -127,6 +131,7 @@ header {
 @media (max-width: 400px) {
     header {
         z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.95);
     }
 
     .user-login {
@@ -136,7 +141,7 @@ header {
         top: 85px;
         left: 0;
         right: 0;
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(255, 255, 255, 0.95);
         text-align: center;
         padding: 10px 0;
         z-index: 999;

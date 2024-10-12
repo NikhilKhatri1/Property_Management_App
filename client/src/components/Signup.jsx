@@ -1,3 +1,4 @@
+// Signup.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
 
@@ -38,9 +39,11 @@ const Signup = () => {
                 // On successful signup, navigate to login and pass success message
                 navigate('/login', { state: { message: 'Signup successful!' } });
             } else {
+                console.error('Signup error:', result);  // Log the complete result
                 setError(result.error || 'Signup failed');
             }
         } catch (err) {
+            console.error('Signup fetch error:', err);  // Log network errors
             setError('Error occurred during signup');
         }
     };

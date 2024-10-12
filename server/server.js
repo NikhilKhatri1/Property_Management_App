@@ -1,77 +1,85 @@
+// server.js
 const express = require('express');
-require('dotenv').config();  // Load env variables
-const db = require('./config/db'); // Database connection
+const mongoose = require('mongoose');
+require('dotenv').config();
+const db = require('./config/db');
+const signup = require('./models/signup');
 const bcrypt = require('bcrypt');  // For password hashing
 const cors = require('cors');
-const signup = require('./models/signup');
 
-// Initialize express app
 const app = express();
 
-// Middleware setup
-app.use(cors({ origin: 'http://localhost:5173' }));  // Adjust frontend URL if needed
-app.use(express.json());  // To parse JSON request body
+// Use cors middleware to allow requests from the frontend
+app.use(cors({ origin: 'http://localhost:5173' }));
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 // Home route
 app.get('/', (req, res) => {
-    res.send("Property Management App - Backend Running");
+    res.send("Property Management app Login");
 });
 
-// POST /signup: Register new user
-app.post('/signup', async (req, res) => {
-    try {
-        const { firstName, lastName, userName, loginId, password } = req.body;
-
-        // Hash the password before saving
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create a new user
-        const newUser = new signup({
-            firstName,
-            lastName,
-            userName,
-            loginId,
-            password: hashedPassword,
-        });
-
-        // Save user to the database
-        const savedUser = await newUser.save();
-        console.log("Account Created Successfully...");
-        res.status(201).json(savedUser);
-    } catch (err) {
-        console.error("Error creating account", err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-// POST /login: Authenticate user
+// POST /login
 app.post('/login', async (req, res) => {
     try {
         const { loginId, password } = req.body;
 
         // Find user by loginId
-        const user = await signup.findOne({ loginId });
+        const user = await signup.findOne({ loginId: loginId });
 
         if (user) {
-            // Compare provided password with the stored hashed password
+            // Compare hashed password with the stored hash
             const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
                 console.log("Login Successful...");
-                res.status(200).json({ message: 'Successfully Logged In', user });
+                res.status(200).json({ message: 'Successfully Logged In' });
             } else {
-                console.log("Wrong Password");
+                console.log('Wrong Password');
                 res.status(401).json({ message: 'Unauthorized: Wrong Password' });
             }
         } else {
-            console.log("Wrong loginId");
+            console.log('Wrong loginId');
             res.status(401).json({ message: 'Unauthorized: Wrong loginId' });
         }
     } catch (err) {
-        console.error("Login error", err);
+        console.log(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// POST /signup
+app.post('/signup', async (req, res) => {
+    try {
+        const { firstName, lastName, userName, loginId, password } = req.body;
+
+        // Check for existing user
+        const existingUser = await signup.findOne({ loginId });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Email already in use' });
+        }
+
+        // Hash the password before saving
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new user with the hashed password
+        const newUser = new signup({
+            firstName,
+            lastName,
+            userName,
+            loginId,
+            password: hashedPassword
+        });
+
+        // Save user to the database
+        await newUser.save();
+        console.log("Account Created Successfully...");
+        res.status(200).json({ message: 'Account Created Successfully' });
+    } catch (err) {
+        console.error(err);  // Log error details for better visibility
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
 // Start Server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}: http://localhost:${PORT}`));
+app.listen(5000, () => console.log('Server started on port 5000: http://localhost:5000'));

@@ -6,7 +6,7 @@ import './index.css'; // Ensure Tailwind CSS is imported
 import Login from './components/Login';
 import Signup from './components/Signup';
 import DashBoard from './components/DashBoard'
-import LandingPage from './components/LandingPage';
+import Home from './components/Home';
 
 const App = () => {
   return (
@@ -15,7 +15,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/DashBoard" element={<DashBoard />} />
-        <Route path="/" element={<LandingPage />}/>
+        <Route path="/" element={<Home />}/>
       </Routes>
     </Router>
   );
