@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <section className='flex items-center justify-center h-screen p-2 my-2 text-white bg-center bg-cover' style={{ backgroundImage: "url('bg.jpeg')" }}>
+      <section className='flex items-center justify-center h-screen text-white bg-center bg-cover' style={{ backgroundImage: "url('bg.jpeg')" }}>
         <div className="flex flex-col w-full max-w-6xl mx-auto lg:flex-row section-row">
           <div className="flex flex-col justify-center w-full lg:w-1/2 c-1">
             <p className='mb-4 text-4xl font-bold heading'>Property Management Hub</p>
